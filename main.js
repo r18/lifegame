@@ -2,6 +2,7 @@ var board_x = 30;
 var board_y = 30;
 var timer = "";
 var speed = 200;
+var generations = 0;
 
 function main(){
   drawBoard(board_x,board_y);
@@ -95,6 +96,7 @@ function refrectBoardFromArray(array){
       else clear(x,y);
     }
   }
+  count();
 }
 
 function randomBoard(){
@@ -104,6 +106,18 @@ function randomBoard(){
       else clear(x,y);
     }
   }
+}
+
+function count(){
+  var cnt = 0;
+  generations++;
+  for(var y = 0;y <board_y;y++){
+    for(var x=0;x<board_x;x++){
+      cnt += isAlive(x,y);
+    }
+  }
+  document.getElementById("cells").innerHTML = "Cells : " + cnt + " / " + board_x * board_y;
+  document.getElementById("gen").innerHTML = "Generation : " + generations;
 }
 
 function start(){
