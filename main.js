@@ -1,13 +1,12 @@
 var board_x = 30;
 var board_y = 30;
+var timer = "";
+var speed = 200;
 
 function main(){
   drawBoard(board_x,board_y);
   init();
   randomBoard();
-  setInterval(function(){
-    refrectBoardFromArray(checkBoard()); 
-  },100);
 }
 
 function drawBoard(width,height){
@@ -19,13 +18,21 @@ function drawBoard(width,height){
       td.id = x+y*width;
       td.style.backgroundColor = x%2==1?"black":"red";
       tr.appendChild(td);
-      td.onclick = function(){
-      }
+      td.onclick = function(e){
+        var td = e.originalTarget;
+        if(td.style.backgroundColor == "white")td.style.backgroundColor = "black";
+        else td.style.backgroundColor = "white";
+      };
     }
     table.appendChild(tr);
   }
   document.getElementById("board").appendChild(table);
   board = document.getElementById("board").children[0];
+  document.getElementById("start").onclick = start;
+  document.getElementById("stop").onclick = stop;
+  document.getElementById("random").onclick = randomBoard;
+  document.getElementById("clear").onclick = init;
+  document.getElementById("speed").onmousemove = changeSpeed;
 }
 
 function getCell(x,y){
@@ -97,4 +104,21 @@ function randomBoard(){
       else clear(x,y);
     }
   }
+}
+
+function start(){
+  timer = setInterval(function(){
+    refrectBoardFromArray(checkBoard()); 
+  },speed);
+  
+}
+
+function stop(){
+  clearInterval(timer);
+}
+
+function changeSpeed(){
+  speed = document.getElementById("speed").value;
+  stop();
+  start();
 }
