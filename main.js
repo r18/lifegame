@@ -33,7 +33,7 @@ function drawBoard(width,height){
   document.getElementById("stop").onclick = stop;
   document.getElementById("random").onclick = randomBoard;
   document.getElementById("clear").onclick = init;
-  document.getElementById("speed").onmousemove = changeSpeed;
+  document.getElementById("speed").onchange= changeSpeed;
 }
 
 function getCell(x,y){
